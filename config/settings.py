@@ -51,10 +51,16 @@ INSTALLED_APPS = [
     # 3rd Party
     "crispy_forms",  # new
     "crispy_bootstrap5",  # new
+    'allauth',
+    'allauth.account',
     'debug_toolbar',
     "django_browser_reload",
     'django_extensions',
-]
+    # Own
+    'accounts',
+
+
+    ]
 
 MIDDLEWARE = [
     'django.middleware.cache.UpdateCacheMiddleware',  # new
@@ -109,7 +115,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": env.dj_db_url("DATABASE_URL", default="postgres://postgres@db/postgres")
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -167,6 +172,33 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
+LOGIN_REDIRECT_URL = "pages:home"
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'pages:home'
+
+# django-allauth config
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ACCOUNT_SESSION_REMEMBER = True  # new
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True  # new
+ACCOUNT_USERNAME_REQUIRED = False  # new
+ACCOUNT_AUTHENTICATION_METHOD = 'email'  # new
+ACCOUNT_EMAIL_REQUIRED = True  # new
+ACCOUNT_UNIQUE_EMAIL = True  # new
+
+DEFAULT_FROM_EMAIL = "info@cima.com"
 
 
 if DEBUG:
