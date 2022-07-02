@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./postgres_data/db:/var/lib/postgres/data
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+  web:
+    build: .
+    command: gunicorn config.wsgi -b 0.0.0.0:8000 # new
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - "DJANGO_SECRET_KEY=QHru7iatgbBPxFzxZKg3QNHFunoCUy-7v43WpM3vwN8fnvNsQ3k"
+      - "DJANGO_DEBUG=False"
+    depends_on:
+      - db
