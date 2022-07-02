@@ -16,7 +16,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - "DJANGO_SECRET_KEY=QHru7iatgbBPxFzxZKg3QNHFunoCUy-7v43WpM3vwN8fnvNsQ3k"
+      - "DJANGO_SECRET_KEY=AE9eFXHF7Wf4BjrcEqkfyKsO6uN89HSH8GUQUi8oUcXbJ0eBRVM"
       - "DJANGO_DEBUG=TRUE"
       - "DJANGO_DEBUG=True"
       - "DJANGO_SECURE_SSL_REDIRECT=False"
