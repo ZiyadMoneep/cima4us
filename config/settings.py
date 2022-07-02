@@ -11,6 +11,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from pathlib import Path
+from environs import Env  # new
+import socket
+
+
+env = Env()  # new
+env.read_env()  # new
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,11 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-b5xtu7xhym)6njza&lfqff6!^r**b%wwna3)-5r%+pt4ww+kz('
+SECRET_KEY = env.str("DJANGO_SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]  # new
 
 
 # Application definition
@@ -36,7 +46,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+        'whitenoise.runserver_nostatic',  # new
     'django.contrib.staticfiles',
+    # 3rd Party
+    "crispy_forms",  # new
+    "crispy_bootstrap5",  # new
+    'debug_toolbar',
+    "django_browser_reload",
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +71,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

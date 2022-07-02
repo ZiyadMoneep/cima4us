@@ -330,3 +330,4 @@ explore_django_cookiecutter/media/
 .env
 .envs/*
 !.envs/.local/
+docker-compose-prod.yml
